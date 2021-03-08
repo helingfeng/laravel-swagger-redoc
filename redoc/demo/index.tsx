@@ -75,7 +75,7 @@ class DemoApp extends React.Component<
       <>
         <Heading>
           <a href=".">
-            <Logo src="https://center.chebaba.com/img/default2020.jpg" />
+            <Logo src="https://github.com/Redocly/redoc/raw/master/docs/images/redoc-logo.png" />
           </a>
           <ControlsContainer>
             <ComboBox
