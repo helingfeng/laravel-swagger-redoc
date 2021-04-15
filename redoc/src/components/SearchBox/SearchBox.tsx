@@ -109,7 +109,7 @@ export class SearchBox extends React.PureComponent<SearchBoxProps, SearchBoxStat
 
   search = (event: React.ChangeEvent<HTMLInputElement>) => {
     const q = event.target.value;
-    if (q.length < 3) {
+    if (q.length < 1) {
       this.clearResults(q);
       return;
     }

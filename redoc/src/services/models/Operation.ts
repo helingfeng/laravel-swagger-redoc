@@ -25,6 +25,7 @@ import { FieldModel } from './Field';
 import { MediaContentModel } from './MediaContent';
 import { RequestBodyModel } from './RequestBody';
 import { ResponseModel } from './Response';
+import { encode } from 'js-base64';
 
 export interface XPayloadSample {
   lang: 'payload';
@@ -114,7 +115,7 @@ export class OperationModel implements IMenuItem {
     } else {
       this.id =
         operationSpec.operationId !== undefined
-          ? 'operation/' + encodeURIComponent((operationSpec.tags !== undefined ? operationSpec.tags.join(',') : '') + operationSpec.operationId)
+          ? 'operation/' + encode((operationSpec.tags !== undefined ? operationSpec.tags.join(',') : '') + operationSpec.operationId)
           : parent !== undefined
           ? parent.id + this.pointer
           : this.pointer;

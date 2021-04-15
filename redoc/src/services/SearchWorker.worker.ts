@@ -31,6 +31,8 @@ export interface SearchResult<T = string> {
 
 let store: any[] = [];
 
+const docs: any[] = [];
+
 lunr.tokenizer.separator = /\s+/;
 
 let builder: lunr.Builder;
@@ -54,11 +56,13 @@ function initEmpty() {
 
 initEmpty();
 
-const expandTerm = term => '*' + lunr.stemmer(new lunr.Token(term, {})) + '*';
+// const expandTerm = term => '*' + lunr.stemmer(new lunr.Token(term, {})) + '*';
 
 export function add<T>(title: string, description: string, meta?: T) {
   const ref = store.push(meta) - 1;
-  const item = { title: title.toLowerCase(), description: description.toLowerCase(), ref };
+  const item = { title: title.toLowerCase(), description: description.toLowerCase(), ref , score: Math.random()};
+
+  docs.push(item)
   builder.add(item);
 }
 
@@ -104,17 +108,24 @@ export async function search<Meta = string>(
     return [];
   }
 
-  let searchResults = (await index).query(t => {
-    q.trim()
-      .toLowerCase()
-      .split(/\s+/)
-      .forEach(term => {
-        if (term.length === 1) return;
-        const exp = expandTerm(term);
-        t.term(exp, {});
-      });
+  // let searchResults = (await index).query(t => {
+  //   q.trim()
+  //     .toLowerCase()
+  //     .split(/\s+/)
+  //     .forEach(term => {
+  //       if (term.length === 1) return;
+  //       const exp = expandTerm(term);
+  //       t.term(exp, {});
+  //     });
+  // });
+
+  const queryString = q.trim().toLowerCase();
+  console.log(queryString);
+  let searchResults = docs.filter((item) => {
+    return item.title.indexOf(queryString) !== -1 || item.description.indexOf(queryString) !== -1
   });
 
+  console.log(searchResults);
   if (limit > 0) {
     searchResults = searchResults.slice(0, limit);
   }

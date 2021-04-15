@@ -4,6 +4,7 @@ import { OpenAPIExternalDocumentation, OpenAPITag } from '../../types';
 import { MarkdownHeading, MarkdownRenderer } from '../MarkdownRenderer';
 import { ContentItemModel } from '../MenuBuilder';
 import { IMenuItem, MenuItemGroupType } from '../MenuStore';
+import { encode } from 'js-base64';
 
 /**
  * Operations Group model ready to be used by components
@@ -37,7 +38,7 @@ export class GroupModel implements IMenuItem {
     makeObservable(this);
 
     // markdown headings already have ids calculated as they are needed for heading anchors
-    this.id = (tagOrGroup as MarkdownHeading).id || type + '/' + encodeURIComponent(tagOrGroup.name);
+    this.id = (tagOrGroup as MarkdownHeading).id || type + '/' + encode(tagOrGroup.name);
     this.type = type;
     this.name = tagOrGroup['x-displayName'] || tagOrGroup.name;
     this.level = (tagOrGroup as MarkdownHeading).level || 1;

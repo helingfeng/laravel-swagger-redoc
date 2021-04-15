@@ -140,6 +140,7 @@
     "decko": "^1.2.0",
     "dompurify": "^2.0.12",
     "eventemitter3": "^4.0.4",
+    "js-base64": "^3.6.0",
     "json-pointer": "^0.6.0",
     "json-schema-ref-parser": "^6.1.0",
     "lunr": "2.3.8",
